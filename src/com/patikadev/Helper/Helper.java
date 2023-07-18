@@ -8,17 +8,11 @@ public class Helper {
     // Helper methods located in this class.
 
     public static int screenCenter(String axis, Dimension size) {
-        int point;
-        switch (axis) {
-            case "x":
-                point = (Toolkit.getDefaultToolkit().getScreenSize().width - size.width) / 2;
-                break;
-            case "y":
-                point = (Toolkit.getDefaultToolkit().getScreenSize().height - size.height) / 2;
-                break;
-            default:
-                point = 0;
-        }
+        int point = switch (axis) {
+            case "x" -> (Toolkit.getDefaultToolkit().getScreenSize().width - size.width) / 2;
+            case "y" -> (Toolkit.getDefaultToolkit().getScreenSize().height - size.height) / 2;
+            default -> 0;
+        };
         return point;
     }
 
@@ -44,22 +38,35 @@ public class Helper {
         String msg;
         String title;
         switch (str) {
-            case "fill":
+            case "fill" -> {
                 msg = "Fill all the areas";
                 title = "Blank Areas";
-                break;
-            case "done":
+            }
+            case "done" -> {
                 msg = "Process succesfull.";
                 title = "Success";
-                break;
-            case "error":
+            }
+            case "error" -> {
                 msg = "User couldn't added!";
                 title = "Error";
+            }
+            default -> {
+                msg = str;
+                title = "Message";
+            }
+        }
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static boolean confirm(String str) {
+        String msg;
+        switch (str) {
+            case "sure":
+                msg = "Are you sure?";
                 break;
             default:
                 msg = str;
-                title = "Message";
         }
-        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.INFORMATION_MESSAGE);
+        return JOptionPane.showConfirmDialog(null, msg, "Confirmation", JOptionPane.YES_NO_OPTION) == 0;
     }
 }
