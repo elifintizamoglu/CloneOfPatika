@@ -99,6 +99,12 @@ public class Course {
 
     public static boolean delete(int id) {
         String query = "DELETE FROM course WHERE id = ?";
+        ArrayList<Subject> subjectList = Subject.getList();
+        for (Subject subject : subjectList) {
+            if (subject.getCourse().getId() == id) {
+                Subject.delete(subject.getId());
+            }
+        }
         try {
             PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
             pr.setInt(1, id);

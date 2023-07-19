@@ -2,8 +2,10 @@ package com.patikadev.View;
 
 import com.patikadev.Helper.Config;
 import com.patikadev.Helper.Helper;
+import com.patikadev.Helper.Item;
 import com.patikadev.Model.Course;
 import com.patikadev.Model.Operator;
+import com.patikadev.Model.Subject;
 import com.patikadev.Model.User;
 
 import javax.swing.*;
@@ -40,11 +42,22 @@ public class OperatorGUI extends JFrame {
     private JTextField fld_course_name;
     private JButton btn_course_add;
     private JPanel pnl_course_add;
+    private JPanel pnl_subject_list;
+    private JScrollPane scrl_subject_list;
+    private JTable tbl_subject_list;
+    private JPanel pnl_subject_add;
+    private JTextField fld_subject_name;
+    private JTextField fld_subject_lang;
+    private JComboBox cmb_subject_course;
+    private JComboBox cmb_subject_user;
+    private JButton btn_subject_add;
     private DefaultTableModel mdl_user_list;
     private Object[] row_user_list;
     private DefaultTableModel mdl_course_list;
     private Object[] row_course_list;
     private JPopupMenu course_menu;
+    private DefaultTableModel mdl_subject_list;
+    private Object[] row_subject_list;
 
     private final Operator operator;
 
@@ -102,6 +115,8 @@ public class OperatorGUI extends JFrame {
                     Helper.showMsg("done");
                 }
                 loadUserModel();
+                loadSubjectEducatorComboBox();
+                loadSubjectModel();
             }
         });
         // ##User List
@@ -116,23 +131,27 @@ public class OperatorGUI extends JFrame {
         course_menu.add(deleteMenu);
 
         updateMenu.addActionListener(e -> {
-            int select_id = Integer.parseInt(tbl_course_list.getValueAt(tbl_course_list.getSelectedRow(),0).toString());
+            int select_id = Integer.parseInt(tbl_course_list.getValueAt(tbl_course_list.getSelectedRow(), 0).toString());
             UpdateCourseGUI updateGUI = new UpdateCourseGUI(Course.getFetch(select_id));
             updateGUI.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     loadCourseModel();
+                    loadSubjectCourseComboBox();
+                    loadSubjectModel();
                 }
             });
         });
 
         deleteMenu.addActionListener(e -> {
-            if(Helper.confirm("sure")){
-                int select_id = Integer.parseInt(tbl_course_list.getValueAt(tbl_course_list.getSelectedRow(),0).toString());
-                if(Course.delete(select_id)){
+            if (Helper.confirm("sure")) {
+                int select_id = Integer.parseInt(tbl_course_list.getValueAt(tbl_course_list.getSelectedRow(), 0).toString());
+                if (Course.delete(select_id)) {
                     Helper.showMsg("done");
                     loadCourseModel();
-                } else{
+                    loadSubjectCourseComboBox();
+                    loadSubjectModel();
+                } else {
                     Helper.showMsg("error");
                 }
             }
@@ -157,8 +176,23 @@ public class OperatorGUI extends JFrame {
                 tbl_course_list.setRowSelectionInterval(selectedRow, selectedRow);
             }
         });
+        // ##Course List
 
-        // ## Model Course List
+        // Subject List
+
+        mdl_subject_list = new DefaultTableModel();
+        Object[] col_subject_list = {"ID", "Subject Name", "Programming Language", "Course Name", "Educator"};
+        mdl_subject_list.setColumnIdentifiers(col_subject_list);
+        row_subject_list = new Object[col_subject_list.length];
+        loadSubjectModel();
+
+        tbl_subject_list.setModel(mdl_subject_list);
+        tbl_subject_list.getTableHeader().setReorderingAllowed(false);
+        tbl_subject_list.getColumnModel().getColumn(0).setMaxWidth(75);
+        loadSubjectCourseComboBox();
+        loadSubjectEducatorComboBox();
+
+        // ## Subject List
 
         btn_user_add.addActionListener(e -> {
             if (Helper.isFieldEmpty(fld_name) || Helper.isFieldEmpty(fld_username) || Helper.isFieldEmpty(fld_password)) {
@@ -171,6 +205,7 @@ public class OperatorGUI extends JFrame {
                 if (User.add(name, username, password, userType)) {
                     Helper.showMsg("done");
                     loadUserModel();
+                    loadSubjectEducatorComboBox();
                     fld_name.setText(null);
                     fld_username.setText(null);
                     fld_password.setText(null);
@@ -181,11 +216,14 @@ public class OperatorGUI extends JFrame {
             if (Helper.isFieldEmpty(fld_user_id)) {
                 Helper.showMsg("fill");
             } else {
-                if(Helper.confirm("sure")){
+                if (Helper.confirm("sure")) {
                     int user_id = Integer.parseInt(fld_user_id.getText());
                     if (User.delete(user_id)) {
                         Helper.showMsg("done");
                         loadUserModel();
+                        loadSubjectEducatorComboBox();
+                        loadSubjectModel();
+                        fld_user_id.setText(null);
                     } else {
                         Helper.showMsg("error");
                     }
@@ -203,6 +241,7 @@ public class OperatorGUI extends JFrame {
 
         btn_logout.addActionListener(e -> {
             dispose();
+            LoginGUI loginGUI = new LoginGUI();
         });
 
         btn_course_add.addActionListener(e -> {
@@ -212,12 +251,46 @@ public class OperatorGUI extends JFrame {
                 if (Course.add(fld_course_name.getText())) {
                     Helper.showMsg("done");
                     loadCourseModel();
+                    loadSubjectCourseComboBox();
                     fld_course_name.setText(null);
                 } else {
                     Helper.showMsg("error");
                 }
             }
         });
+
+        btn_subject_add.addActionListener(e -> {
+            Item userItem = (Item) cmb_subject_user.getSelectedItem();
+            Item courseItem = (Item) cmb_subject_course.getSelectedItem();
+            if (Helper.isFieldEmpty(fld_subject_name) || Helper.isFieldEmpty(fld_subject_lang)) {
+                Helper.showMsg("fill");
+            } else {
+                if (Subject.add(userItem.getKey(), courseItem.getKey(), fld_subject_name.getText(), fld_subject_lang.getText())) {
+                    Helper.showMsg("done");
+                    loadSubjectModel();
+                    fld_subject_name.setText(null);
+                    fld_subject_lang.setText(null);
+                } else {
+                    Helper.showMsg("error");
+                }
+            }
+        });
+    }
+
+    private void loadSubjectModel() {
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_subject_list.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        for (Subject subject : Subject.getList()) {
+            i = 0;
+            row_subject_list[i++] = subject.getId();
+            row_subject_list[i++] = subject.getName();
+            row_subject_list[i++] = subject.getLang();
+            row_subject_list[i++] = subject.getCourse().getName();
+            row_subject_list[i++] = subject.getEducator().getName();
+            mdl_subject_list.addRow(row_subject_list);
+
+        }
     }
 
     private void loadCourseModel() {
@@ -260,6 +333,20 @@ public class OperatorGUI extends JFrame {
             row_user_list[i++] = obj.getPassword();
             row_user_list[i++] = obj.getUserType();
             mdl_user_list.addRow(row_user_list);
+        }
+    }
+
+    public void loadSubjectCourseComboBox() {
+        cmb_subject_course.removeAllItems();
+        for (Course course : Course.getList()) {
+            cmb_subject_course.addItem(new Item(course.getId(), course.getName()));
+        }
+    }
+
+    public void loadSubjectEducatorComboBox() {
+        cmb_subject_user.removeAllItems();
+        for (User user : User.getListOnlyEducator()) {
+            cmb_subject_user.addItem(new Item(user.getId(), user.getName()));
         }
     }
 

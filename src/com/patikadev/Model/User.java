@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class User {
     private int id;
@@ -91,6 +90,28 @@ public class User {
         return userList;
     }
 
+    public static ArrayList<User> getListOnlyEducator() {
+        ArrayList<User> userList = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE userType = 'educator'";
+        User obj;
+        try {
+            Statement st = DbConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new User();
+                obj.setId(rs.getInt("id"));
+                obj.setName(rs.getString("name"));
+                obj.setUsername(rs.getString("username"));
+                obj.setPassword(rs.getString("password"));
+                obj.setUserType(rs.getString("userType"));
+                userList.add(obj);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return userList;
+    }
+
     public static boolean add(String name, String username, String password, String userType) {
         String query = "INSERT INTO user (name,username,password,userType) VALUES (?,?,?,?)";
 
@@ -140,8 +161,61 @@ public class User {
         return obj;
     }
 
+    public static User getFetch(int id) {
+        User obj = null;
+        String query = "SELECT * FROM user WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new User();
+                obj.setId(rs.getInt("id"));
+                obj.setName(rs.getString("name"));
+                obj.setUsername(rs.getString("username"));
+                obj.setPassword(rs.getString("password"));
+                obj.setUserType(rs.getString("userType"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static User getFetch(String username, String password) {
+        User obj = null;
+        String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setString(1, username);
+            pr.setString(2, password);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                switch (rs.getString("userType")) {
+                    case "operator":
+                        obj = new Operator();
+                        break;
+                    default:
+                        obj = new User();
+                }
+                obj.setId(rs.getInt("id"));
+                obj.setName(rs.getString("name"));
+                obj.setUsername(rs.getString("username"));
+                obj.setPassword(rs.getString("password"));
+                obj.setUserType(rs.getString("userType"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return obj;
+    }
+
     public static boolean delete(int id) {
         String query = "DELETE FROM user WHERE id = ?";
+        ArrayList<Subject> subjectList = Subject.getListByUser(id);
+        for (Subject subject : subjectList) {
+            Subject.delete(subject.getId());
+        }
         try {
             PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
             pr.setInt(1, id);
@@ -208,9 +282,9 @@ public class User {
 
     public static String searchQuery(String name, String username, String userType) {
         String query = "SELECT * FROM user WHERE name LIKE '%{{name}}%' AND username LIKE '%{{username}}%' AND userType LIKE '%%{{userType}}'";
-        query = query.replace("{{name}}",name);
-        query = query.replace("{{username}}",username);
-        query = query.replace("{{userType}}",userType);
+        query = query.replace("{{name}}", name);
+        query = query.replace("{{username}}", username);
+        query = query.replace("{{userType}}", userType);
         return query;
     }
 
