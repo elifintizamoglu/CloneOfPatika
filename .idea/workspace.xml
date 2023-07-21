@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Course section and it's crud operations are added.">
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/Helper/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Subject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/StudentGUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/StudentGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/icon.png" afterDir="false" />
+    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Subject section, it's crud operations and login page added.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Operator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" afterDir="false" />
     </list>
@@ -52,9 +40,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "276",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "231",
-    "last_opened_file_path": "C:/IntellijIdeaProjects/CloneOfPatika/src/mysql-connector-j-8.0.33.jar",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "106",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "315",
+    "last_opened_file_path": "C:/IntellijIdeaProjects/CloneOfPatika",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -69,7 +57,7 @@
       <recent name="C:\IntellijIdeaProjects\CloneOfPatika\src\com\patikadev" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginGUI">
+  <component name="RunManager" selected="Application.OperatorGUI">
     <configuration name="LoginGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.patikadev.View.LoginGUI" />
       <module name="CloneOfPatika" />
@@ -111,8 +99,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LoginGUI" />
         <item itemvalue="Application.OperatorGUI" />
+        <item itemvalue="Application.LoginGUI" />
         <item itemvalue="Application.UpdateCourseGUI" />
       </list>
     </recent_temporary>
@@ -140,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689711716118</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Subject section, it's crud operations and login page added.">
+      <created>1689780513747</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689780513747</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,6 +152,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
     <MESSAGE value="Course section and it's crud operations are added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Course section and it's crud operations are added." />
+    <MESSAGE value="Subject section, it's crud operations and login page added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Subject section, it's crud operations and login page added." />
   </component>
 </project>

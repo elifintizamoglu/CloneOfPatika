@@ -51,6 +51,9 @@ public class OperatorGUI extends JFrame {
     private JComboBox cmb_subject_course;
     private JComboBox cmb_subject_user;
     private JButton btn_subject_add;
+    private JPanel pnl_subject_delete;
+    private JButton btn_subject_delete;
+    private JTextField fld_subject_id;
     private DefaultTableModel mdl_user_list;
     private Object[] row_user_list;
     private DefaultTableModel mdl_course_list;
@@ -181,6 +184,7 @@ public class OperatorGUI extends JFrame {
         // Subject List
 
         mdl_subject_list = new DefaultTableModel();
+
         Object[] col_subject_list = {"ID", "Subject Name", "Programming Language", "Course Name", "Educator"};
         mdl_subject_list.setColumnIdentifiers(col_subject_list);
         row_subject_list = new Object[col_subject_list.length];
@@ -191,6 +195,14 @@ public class OperatorGUI extends JFrame {
         tbl_subject_list.getColumnModel().getColumn(0).setMaxWidth(75);
         loadSubjectCourseComboBox();
         loadSubjectEducatorComboBox();
+
+        tbl_subject_list.getSelectionModel().addListSelectionListener(e -> {
+            try {
+                String select_subject_id = tbl_subject_list.getValueAt(tbl_subject_list.getSelectedRow(), 0).toString();
+                fld_subject_id.setText(select_subject_id);
+            } catch (Exception exception) {
+            }
+        });
 
         // ## Subject List
 
@@ -272,6 +284,23 @@ public class OperatorGUI extends JFrame {
                     fld_subject_lang.setText(null);
                 } else {
                     Helper.showMsg("error");
+                }
+            }
+        });
+
+        btn_subject_delete.addActionListener(e -> {
+            if (Helper.isFieldEmpty(fld_subject_id)) {
+                Helper.showMsg("fill");
+            } else {
+                if (Helper.confirm("sure")) {
+                    int subject_id = Integer.parseInt(fld_subject_id.getText());
+                    if (Subject.delete(subject_id)) {
+                        Helper.showMsg("done");
+                        loadSubjectModel();
+                        fld_subject_id.setText(null);
+                    } else {
+                        Helper.showMsg("error");
+                    }
                 }
             }
         });
