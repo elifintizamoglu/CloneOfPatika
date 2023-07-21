@@ -23,11 +23,12 @@ public class UpdateSubjectGUI extends JFrame {
     public UpdateSubjectGUI(Subject subject) {
         this.subject = subject;
         add(wrapper);
-        setSize(400, 400);
+        setSize(400, 300);
         setLocation(Helper.screenCenter("x", getSize()), Helper.screenCenter("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
         setVisible(true);
+        Helper.setLayout();
 
         fld_subject_name_update.setText(subject.getName());
         fld_subject_lang_update.setText(subject.getLang());

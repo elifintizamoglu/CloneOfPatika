@@ -181,6 +181,7 @@ public class Subject {
             pr.setInt(4,course_id);
             pr.setInt(5, id);
             return pr.executeUpdate() != -1;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

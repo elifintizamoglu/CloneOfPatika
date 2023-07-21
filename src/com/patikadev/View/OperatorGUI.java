@@ -55,6 +55,7 @@ public class OperatorGUI extends JFrame {
     private JButton btn_subject_delete;
     private JTextField fld_subject_id;
     private JButton btn_subject_update;
+    private JPanel pnl_search;
     private DefaultTableModel mdl_user_list;
     private Object[] row_user_list;
     private DefaultTableModel mdl_course_list;
@@ -333,7 +334,6 @@ public class OperatorGUI extends JFrame {
             row_subject_list[i++] = subject.getCourse().getName();
             row_subject_list[i++] = subject.getEducator().getName();
             mdl_subject_list.addRow(row_subject_list);
-
         }
     }
 

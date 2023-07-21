@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Subject delete operation added.">
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.java" afterDir="false" />
+    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Subject update operation added.">
+      <change afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Content.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Subject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +48,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "176",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "328",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "337",
     "last_opened_file_path": "C:/IntellijIdeaProjects/CloneOfPatika",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
@@ -60,7 +64,7 @@
       <recent name="C:\IntellijIdeaProjects\CloneOfPatika\src\com\patikadev" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.OperatorGUI">
+  <component name="RunManager" selected="Application.LoginGUI">
     <configuration name="LoginGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.patikadev.View.LoginGUI" />
       <module name="CloneOfPatika" />
@@ -102,8 +106,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.OperatorGUI" />
         <item itemvalue="Application.LoginGUI" />
+        <item itemvalue="Application.OperatorGUI" />
         <item itemvalue="Application.UpdateCourseGUI" />
       </list>
     </recent_temporary>
@@ -145,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689931338605</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Subject update operation added.">
+      <created>1689935741091</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689935741091</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,6 +175,7 @@
     <MESSAGE value="Course section and it's crud operations are added." />
     <MESSAGE value="Subject section, it's crud operations and login page added." />
     <MESSAGE value="Subject delete operation added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subject delete operation added." />
+    <MESSAGE value="Subject update operation added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Subject update operation added." />
   </component>
 </project>
