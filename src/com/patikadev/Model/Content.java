@@ -2,6 +2,7 @@ package com.patikadev.Model;
 
 import com.patikadev.Helper.DbConnector;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,13 +42,76 @@ public class Content {
                 String link = rs.getString("link");
                 String quizQue = rs.getString("quizQue");
                 int subj_id = rs.getInt("subject_id");
-                obj = new Content(id, title, description, link, quizQue,subj_id);
+                obj = new Content(id, title, description, link, quizQue, subj_id);
                 contentList.add(obj);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return contentList;
+    }
+
+    public static boolean add(String title, String description, String link, String quizQue, int subject_id) {
+        String query = "INSERT INTO content (title,description,link,quizQue,subject_id) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setString(1, title);
+            pr.setString(2, description);
+            pr.setString(3, link);
+            pr.setString(4, quizQue);
+            pr.setInt(5, subject_id);
+            return pr.executeUpdate() != -1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+
+    public static Content getFetch(int id) {
+        Content obj = null;
+        String query = "SELECT * FROM content WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new Content(rs.getInt("id"), rs.getString("title"), rs.getString("description"), rs.getString("link"), rs.getString("quizQue"), rs.getInt("subject_id"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static boolean update(int id, String title, String description, String link, String quizQue, int subject_id) {
+        String query = "UPDATE content SET title = ?, description = ?, link = ?,quizQue = ?, subject_id=? WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setString(1, title);
+            pr.setString(2, description);
+            pr.setString(3, link);
+            pr.setString(4, quizQue);
+            pr.setInt(5, subject_id);
+            pr.setInt(6, id);
+            return pr.executeUpdate() != -1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+
+    public static boolean delete(int id) {
+        String query = "DELETE FROM content WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, id);
+            return pr.executeUpdate() != -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
     }
 
     public int getId() {

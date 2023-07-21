@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Subject update operation added.">
-      <change afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Content.java" afterDir="false" />
+    <list default="true" id="957737ad-b5d9-4526-8036-17a8a2ada8fa" name="Changes" comment="Educator screen added.">
+      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateContentGUI.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateContentGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Helper/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Subject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Helper/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/patikadev/Model/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/Model/Content.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/EducatorGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/LoginGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/OperatorGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/patikadev/View/UpdateSubjectGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +44,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "176",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "337",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "159",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "304",
     "last_opened_file_path": "C:/IntellijIdeaProjects/CloneOfPatika",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
@@ -156,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689935741091</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Educator screen added.">
+      <created>1689959431348</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689959431348</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,6 +180,7 @@
     <MESSAGE value="Subject section, it's crud operations and login page added." />
     <MESSAGE value="Subject delete operation added." />
     <MESSAGE value="Subject update operation added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subject update operation added." />
+    <MESSAGE value="Educator screen added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Educator screen added." />
   </component>
 </project>

@@ -34,6 +34,10 @@ public class Helper {
         return field.getText().isEmpty();
     }
 
+    public static boolean isAreaEmpty(JTextArea area) {
+        return area.getText().isEmpty();
+    }
+
     public static void showMsg(String str) {
         String msg;
         String title;

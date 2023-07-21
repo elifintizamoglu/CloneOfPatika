@@ -2,12 +2,16 @@ package com.patikadev.View;
 
 import com.patikadev.Helper.Config;
 import com.patikadev.Helper.Helper;
+import com.patikadev.Helper.Item;
 import com.patikadev.Model.Content;
+import com.patikadev.Model.Course;
 import com.patikadev.Model.Subject;
 import com.patikadev.Model.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
 
 public class EducatorGUI extends JFrame {
     private JPanel wrapper;
@@ -32,6 +36,7 @@ public class EducatorGUI extends JFrame {
     private Object[] row_subject_list;
     private DefaultTableModel mdl_content_list;
     private Object[] row_content_list;
+    private JPopupMenu content_menu;
 
     private final User user;
 
@@ -67,7 +72,38 @@ public class EducatorGUI extends JFrame {
         // ## Subject List
 
 
-        // Content Lİst
+        // Content List
+
+        content_menu = new JPopupMenu();
+        JMenuItem updateContent = new JMenuItem("Update");
+        JMenuItem deleteContent = new JMenuItem("Delete");
+        content_menu.add(updateContent);
+        content_menu.add(deleteContent);
+
+        updateContent.addActionListener(e -> {
+            int select_id = Integer.parseInt(tbl_content_list.getValueAt(tbl_content_list.getSelectedRow(), 0).toString());
+            UpdateContentGUI updateGUI = new UpdateContentGUI(Content.getFetch(select_id));
+            updateGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    DefaultTableModel clearModel = (DefaultTableModel) tbl_content_list.getModel();
+                    clearModel.setRowCount(0);
+                }
+            });
+        });
+
+        deleteContent.addActionListener(e -> {
+            if (Helper.confirm("sure")) {
+                int select_id = Integer.parseInt(tbl_content_list.getValueAt(tbl_content_list.getSelectedRow(), 0).toString());
+                if (Content.delete(select_id)) {
+                    Helper.showMsg("done");
+                    DefaultTableModel clearModel = (DefaultTableModel) tbl_content_list.getModel();
+                    clearModel.setRowCount(0);
+                } else {
+                    Helper.showMsg("error");
+                }
+            }
+        });
 
         mdl_content_list = new DefaultTableModel();
         Object[] col_content_list = {"ID", "Title", "Description", "Link", "Questions", "Subject Name"};
@@ -75,9 +111,11 @@ public class EducatorGUI extends JFrame {
         row_content_list = new Object[col_content_list.length];
 
         tbl_content_list.setModel(mdl_content_list);
+        tbl_content_list.setComponentPopupMenu(content_menu);
         tbl_content_list.getTableHeader().setReorderingAllowed(false);
         tbl_content_list.getColumnModel().getColumn(0).setMaxWidth(75);
 
+        loadContentSubjectComboBox();
 
         tbl_subject_list.getSelectionModel().addListSelectionListener(e -> {
             try {
@@ -87,15 +125,48 @@ public class EducatorGUI extends JFrame {
             }
         });
 
-
+        tbl_content_list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Point point = e.getPoint();
+                int selectedRow = tbl_content_list.rowAtPoint(point);
+                tbl_content_list.setRowSelectionInterval(selectedRow, selectedRow);
+            }
+        });
 
         // ## Content List
 
+
+        btn_content_add.addActionListener(e -> {
+            Item subject_id = (Item) cmb_content_subject.getSelectedItem();
+            if(Helper.isFieldEmpty(fld_content_title)|| Helper.isFieldEmpty(fld_content_link)|| Helper.isAreaEmpty(area_content_desc)||Helper.isAreaEmpty(area_content_ques)){
+                Helper.showMsg("fill");
+            } else {
+                if(Content.add(fld_content_title.getText(),area_content_desc.getText(),fld_content_link.getText(),area_content_ques.getText(),subject_id.getKey())){
+                    Helper.showMsg("done");
+                    loadSubjectModel();
+                    loadContentModel(subject_id.getKey());
+                    fld_content_title.setText(null);
+                    area_content_desc.setText(null);
+                    fld_content_link.setText(null);
+                    area_content_ques.setText(null);
+                }else{
+                    Helper.showMsg("error");
+                }
+            }
+        });
 
         btn_logout.addActionListener(e -> {
             dispose();
             LoginGUI loginGUI = new LoginGUI();
         });
+    }
+
+    public void loadContentSubjectComboBox(){
+        cmb_content_subject.removeAllItems();
+        for(Subject subject: Subject.getListByUser(user.getId())){
+            cmb_content_subject.addItem(new Item(subject.getId(), subject.getName()));
+        }
     }
 
     private void loadContentModel(int selected_id) {
