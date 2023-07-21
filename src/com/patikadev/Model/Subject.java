@@ -154,4 +154,36 @@ public class Subject {
         }
         return true;
     }
+
+    public static Subject getFetch(int id) {
+        Subject obj = null;
+        String query = "SELECT * FROM subject WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new Subject(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("course_id"), rs.getString("name"), rs.getString("lang"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static boolean update(int id, String name, String lang, int user_id, int course_id) {
+        String query = "UPDATE subject SET name = ?, lang = ?, user_id = ?,course_id = ? WHERE id = ?";
+        try {
+            PreparedStatement pr = DbConnector.getInstance().prepareStatement(query);
+            pr.setString(1, name);
+            pr.setString(2, lang);
+            pr.setInt(3,user_id);
+            pr.setInt(4,course_id);
+            pr.setInt(5, id);
+            return pr.executeUpdate() != -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
 }

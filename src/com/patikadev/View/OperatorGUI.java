@@ -54,6 +54,7 @@ public class OperatorGUI extends JFrame {
     private JPanel pnl_subject_delete;
     private JButton btn_subject_delete;
     private JTextField fld_subject_id;
+    private JButton btn_subject_update;
     private DefaultTableModel mdl_user_list;
     private Object[] row_user_list;
     private DefaultTableModel mdl_course_list;
@@ -302,6 +303,20 @@ public class OperatorGUI extends JFrame {
                         Helper.showMsg("error");
                     }
                 }
+            }
+        });
+        btn_subject_update.addActionListener(e -> {
+            if (Helper.isFieldEmpty(fld_subject_id)) {
+                Helper.showMsg("fill");
+            } else {
+                int selected_id = Integer.parseInt(fld_subject_id.getText());
+                UpdateSubjectGUI updateSubjectGUI = new UpdateSubjectGUI(Subject.getFetch(selected_id));
+                updateSubjectGUI.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        loadSubjectModel();
+                    }
+                });
             }
         });
     }
