@@ -4,7 +4,6 @@ import com.patikadev.Helper.Config;
 import com.patikadev.Helper.Helper;
 import com.patikadev.Helper.Item;
 import com.patikadev.Model.Content;
-import com.patikadev.Model.Course;
 import com.patikadev.Model.Subject;
 import com.patikadev.Model.User;
 
@@ -12,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class EducatorGUI extends JFrame {
     private JPanel wrapper;
@@ -32,6 +32,11 @@ public class EducatorGUI extends JFrame {
     private JTextArea area_content_ques;
     private JComboBox cmb_content_subject;
     private JButton btn_content_add;
+    private JPanel pnl_search;
+    private JTextField fld_subject_search;
+    private JButton btn_subject_search;
+    private JTextField fld_content_search;
+    private JButton btn_content_search;
     private DefaultTableModel mdl_subject_list;
     private Object[] row_subject_list;
     private DefaultTableModel mdl_content_list;
@@ -139,10 +144,10 @@ public class EducatorGUI extends JFrame {
 
         btn_content_add.addActionListener(e -> {
             Item subject_id = (Item) cmb_content_subject.getSelectedItem();
-            if(Helper.isFieldEmpty(fld_content_title)|| Helper.isFieldEmpty(fld_content_link)|| Helper.isAreaEmpty(area_content_desc)||Helper.isAreaEmpty(area_content_ques)){
+            if (Helper.isFieldEmpty(fld_content_title) || Helper.isFieldEmpty(fld_content_link) || Helper.isAreaEmpty(area_content_desc) || Helper.isAreaEmpty(area_content_ques)) {
                 Helper.showMsg("fill");
             } else {
-                if(Content.add(fld_content_title.getText(),area_content_desc.getText(),fld_content_link.getText(),area_content_ques.getText(),subject_id.getKey())){
+                if (Content.add(fld_content_title.getText(), area_content_desc.getText(), fld_content_link.getText(), area_content_ques.getText(), subject_id.getKey())) {
                     Helper.showMsg("done");
                     loadSubjectModel();
                     loadContentModel(subject_id.getKey());
@@ -150,7 +155,7 @@ public class EducatorGUI extends JFrame {
                     area_content_desc.setText(null);
                     fld_content_link.setText(null);
                     area_content_ques.setText(null);
-                }else{
+                } else {
                     Helper.showMsg("error");
                 }
             }
@@ -160,11 +165,23 @@ public class EducatorGUI extends JFrame {
             dispose();
             LoginGUI loginGUI = new LoginGUI();
         });
+
+        btn_subject_search.addActionListener(e -> {
+            String name = fld_subject_search.getText();
+            String query = Subject.searchQuery(name, user.getId());
+            loadSubjectModel(Subject.searchSubjectList(query));
+        });
+
+        btn_content_search.addActionListener(e -> {
+            String title = fld_content_search.getText();
+            String query = Content.searchQuery(title);
+            loadContentModel(Content.searchContentList(query));
+        });
     }
 
-    public void loadContentSubjectComboBox(){
+    public void loadContentSubjectComboBox() {
         cmb_content_subject.removeAllItems();
-        for(Subject subject: Subject.getListByUser(user.getId())){
+        for (Subject subject : Subject.getListByUser(user.getId())) {
             cmb_content_subject.addItem(new Item(subject.getId(), subject.getName()));
         }
     }
@@ -173,7 +190,7 @@ public class EducatorGUI extends JFrame {
         DefaultTableModel clearModel = (DefaultTableModel) tbl_content_list.getModel();
         clearModel.setRowCount(0);
         int i;
-        for(Content content:Content.getListBySubjectId(selected_id)){
+        for (Content content : Content.getListBySubjectId(selected_id)) {
             i = 0;
             row_content_list[i++] = content.getId();
             row_content_list[i++] = content.getTitle();
@@ -197,6 +214,37 @@ public class EducatorGUI extends JFrame {
             row_subject_list[i++] = subject.getCourse().getName();
             row_subject_list[i++] = subject.getEducator().getName();
             mdl_subject_list.addRow(row_subject_list);
+        }
+    }
+
+    private void loadSubjectModel(ArrayList<Subject> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_subject_list.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        for (Subject subject : list) {
+            i = 0;
+            row_subject_list[i++] = subject.getId();
+            row_subject_list[i++] = subject.getName();
+            row_subject_list[i++] = subject.getLang();
+            row_subject_list[i++] = subject.getCourse().getName();
+            row_subject_list[i++] = subject.getEducator().getName();
+            mdl_subject_list.addRow(row_subject_list);
+        }
+    }
+
+    private void loadContentModel(ArrayList<Content> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_content_list.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        for (Content content : list) {
+            i = 0;
+            row_content_list[i++] = content.getId();
+            row_content_list[i++] = content.getTitle();
+            row_content_list[i++] = content.getDescription();
+            row_content_list[i++] = content.getLink();
+            row_content_list[i++] = content.getQuizQue();
+            row_content_list[i++] = content.getSubject().getName();
+            mdl_content_list.addRow(row_content_list);
         }
     }
 

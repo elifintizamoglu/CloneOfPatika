@@ -28,6 +28,27 @@ public class Subject {
         this.course = Course.getFetch(course_id);
     }
 
+    public static ArrayList<Subject> searchSubjectList(String query) {
+        ArrayList<Subject> subjectList = new ArrayList<>();
+        Subject obj;
+        try {
+            Statement st = DbConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int user_id = rs.getInt("user_id");
+                int course_id = rs.getInt("course_id");
+                String name = rs.getString("name");
+                String lang = rs.getString("lang");
+                obj = new Subject(id, user_id, course_id, name, lang);
+                subjectList.add(obj);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return subjectList;
+    }
+
     public int getId() {
         return id;
     }
@@ -186,5 +207,11 @@ public class Subject {
             throwables.printStackTrace();
         }
         return true;
+    }
+
+    public static String searchQuery(String name,int user_id) {
+        String query = "SELECT * FROM subject WHERE name LIKE '%{{name}}%' AND user_id = " + user_id;
+        query = query.replace("{{name}}", name);
+        return query;
     }
 }

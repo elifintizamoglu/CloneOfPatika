@@ -114,6 +114,34 @@ public class Content {
         return true;
     }
 
+    public static String searchQuery(String title) {
+        String query = "SELECT * FROM content WHERE title LIKE '%{{title}}%'";
+        query = query.replace("{{title}}",title);
+        return query;
+    }
+
+    public static ArrayList<Content> searchContentList(String query) {
+        ArrayList<Content> contentList = new ArrayList<>();
+        Content obj;
+        try {
+            Statement st = DbConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String desc = rs.getString("description");
+                String link = rs.getString("link");
+                String quizQue = rs.getString("quizQue");
+                int subject_id = rs.getInt("subject_id");
+                obj = new Content(id, title, desc, link, quizQue,subject_id);
+                contentList.add(obj);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return contentList;
+    }
+
     public int getId() {
         return id;
     }
